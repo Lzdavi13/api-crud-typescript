@@ -1,9 +1,12 @@
 import express from 'express'
+import createUser from './controllers/createUser'
 
-const server = express()
+const app = express()
 
-server.get('/', (Request, Response) => {
-  Response.send('Ola')
+app.use(express.json())
+
+app.post('/user', (Request, Response) => {
+  createUser.handle(Request, Response)
 })
 
-server.listen(3333)
+app.listen(3333)
