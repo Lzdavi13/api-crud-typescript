@@ -1,3 +1,4 @@
+import { Request, Response } from 'express'
 import { CreateUserSevice } from './../useCases/createUser/CreateUserServices'
 
 class CreateUser {
@@ -7,7 +8,7 @@ class CreateUser {
     this.createUserSevice = new CreateUserSevice()
   }
 
-  async handle(Request: Request, Response: Response) {
+  public async handle(Request: Request, Response: Response) {
     const { name, email, password } = Request.body
     try {
       const user = await this.createUserSevice.execute({
@@ -18,9 +19,9 @@ class CreateUser {
 
       return Response.status(201).json({ ...user })
     } catch (error: any) {
-      console.log(error.message)
+      return Response.status(500).json({ mensagem: error.message })
     }
   }
 }
 
-export default new CreateUser()
+export default CreateUser

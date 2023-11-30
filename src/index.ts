@@ -6,7 +6,8 @@ const app = express()
 app.use(express.json())
 
 app.post('/user', (Request, Response) => {
-  createUser.handle(Request, Response)
+  const user = new createUser()
+  user.handle(Request, Response)
 })
 
 app.listen(3333)
