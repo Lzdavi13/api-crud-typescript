@@ -1,13 +1,15 @@
 import express from 'express'
-import createUser from './controllers/createUser'
+import { makeCreateUser } from './controllers'
+// import { CreateUserController } from './controllers/createUserController'
 
 const app = express()
 
+const createUserController = makeCreateUser()
+
 app.use(express.json())
 
-app.post('/user', (Request, Response) => {
-  const user = new createUser()
-  user.handle(Request, Response)
+app.post('/user', (request, response) => {
+  return createUserController.handle(request, response)
 })
 
 app.listen(3333)
