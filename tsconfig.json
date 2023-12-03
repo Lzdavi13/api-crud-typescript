@@ -103,5 +103,11 @@
       ]
     },
     "baseUrl": "src"
-  }
+  },
+  "exclude": [
+    "./jest.config.ts",
+    "./node_modules",
+    "./tests",
+    "./build"
+  ]
 }

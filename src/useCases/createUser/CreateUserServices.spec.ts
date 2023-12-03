@@ -1,16 +1,19 @@
-import { UsersRepository } from '@/repositories/UsersRepositories'
+import { describe, expect, test } from 'vitest'
 import { User } from '../../entities/User'
+import { UsersRepositoryInMemory } from '../../repositories/in-memory/UsersRepositoriesinMemory'
 import { CreateUserSevice } from './CreateUserServices'
 
 describe('Create user service', () => {
   test('should be able to create a new user', async () => {
     const userData: User = {
       name: 'Luiz',
-      email: 'luiz3@gmail.com',
-      password: 'test123',
+      email: 'luiz@gmail.com',
+      password: 'luiz123',
     }
 
-    const createUserService = new CreateUserSevice(new UsersRepository())
+    const createUserService = new CreateUserSevice(
+      new UsersRepositoryInMemory(),
+    )
 
     const userCreated = await createUserService.execute(userData)
 
@@ -19,13 +22,15 @@ describe('Create user service', () => {
 
   test('should not be able to create a new user', async () => {
     const userData: User = {
-      name: 'teste',
-      email: 'teste3@gmail.com',
-      password: 'test123',
+      name: 'Luiz Davi',
+      email: 'Luizd@gmail.com',
+      password: 'luiz123',
     }
-    const createUserService = new CreateUserSevice(new UsersRepository())
+    const createUserService = new CreateUserSevice(
+      new UsersRepositoryInMemory(),
+    )
 
-    expect(createUserService.execute(userData)).rejects.toEqual(
+    expect(createUserService.execute(userData)).rejects.toThrowError(
       'O email ja cadastrado',
     )
   })
