@@ -2,6 +2,13 @@ import knex from '../database/conexao'
 import { User } from '../entities/User'
 import { IUsersRepository } from './IUsersRepositories'
 
+export interface IUserDTO {
+  id: number
+  name: string
+  email: string
+  password: string
+}
+
 export class UsersRepository implements IUsersRepository {
   async create(user: User): Promise<User> {
     const [userCreated] = await knex('users')
@@ -21,5 +28,11 @@ export class UsersRepository implements IUsersRepository {
     }
 
     return false
+  }
+
+  async getUserByEmail(email: string): Promise<IUserDTO> {
+    const userFound = await knex('users').where({ email }).first()
+
+    return userFound
   }
 }

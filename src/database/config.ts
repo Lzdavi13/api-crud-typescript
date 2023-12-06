@@ -1,10 +1,10 @@
 export default {
   client: 'pg',
   connection: {
-    host: 'ep-ancient-breeze-82749381.us-east-2.aws.neon.tech',
-    user: 'Lzdavi13',
-    password: 'dqCioA9V0KuI',
-    database: 'crud-typescript',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     ssl: { rejectUnauthorized: false },
   },
 }
