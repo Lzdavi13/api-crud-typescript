@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken'
-import { env } from 'node:process'
+
+const privateKey = '101120'
 
 export const sign = (id: number) => {
-  const jwtToken = jwt.sign({ id }, env.JWT_HASH, { expiresIn: '8h' })
+  const jwtToken = jwt.sign({ id }, privateKey, { expiresIn: '8h' })
 
   return jwtToken
 }
 
-export const verify = (token: string) => {
-  const isValid = jwt.verify(token, env.JWT_HASH)
+export const verifyToken = (token: string) => {
+  const id = jwt.verify(token, privateKey)
 
-  return isValid
+  return id
 }

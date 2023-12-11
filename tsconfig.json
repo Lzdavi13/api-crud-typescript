@@ -104,10 +104,14 @@
     },
     "baseUrl": "src"
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
-    "./jest.config.ts",
-    "./node_modules",
-    "./tests",
-    "./build"
-  ]
+    "node_modules",
+    "dist"
+  ],
+  "ts-node": {
+    "files": true
+  }
 }

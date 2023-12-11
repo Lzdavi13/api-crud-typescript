@@ -6,7 +6,6 @@ export class CreateUserController {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body
-    console.log(this.createUserSevice)
     try {
       const user = await this.createUserSevice.execute({
         name,
