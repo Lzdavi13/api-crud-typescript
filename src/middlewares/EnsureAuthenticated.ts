@@ -28,7 +28,7 @@ async function ensureAuthenticated(
 
     return next()
   } catch (error: any) {
-    return response.status(500).json(error)
+    return response.status(500).json({ message: error.message })
   }
 }
 

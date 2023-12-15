@@ -6,16 +6,16 @@ export class CreateUserController {
 
   public async handle(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body
-    try {
-      const user = await this.createUserSevice.execute({
-        name,
-        email,
-        password,
-      })
 
-      return response.status(201).json({ ...user })
-    } catch (error: any) {
-      return response.status(500).json({ mensagem: error.message })
-    }
+    const user = await this.createUserSevice.execute({
+      name,
+      email,
+      password,
+    })
+
+    return response.status(201).json({ ...user })
+    // } catch (error: any) {
+    //   return response.status(500).json({ mensagem: error.message })
+    // }
   }
 }

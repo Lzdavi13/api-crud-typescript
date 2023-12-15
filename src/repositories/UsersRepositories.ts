@@ -6,7 +6,14 @@ import { IUsersRepository } from './IUsersRepositories'
 
 export class UsersRepository implements IUsersRepository {
   async create(user: User): Promise<User> {
-    const userCreated = await db.user.create({ data: { ...user } })
+    const userCreated = await db.user.create({
+      data: { ...user },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
+    })
 
     return userCreated
   }

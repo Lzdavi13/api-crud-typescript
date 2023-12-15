@@ -7,14 +7,8 @@ export class UserLoginController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body
 
-    try {
-      const user = await this.userLogin.execute(email, password)
+    const user = await this.userLogin.execute(email, password)
 
-      return response.status(200).json({ ...user })
-    } catch (error: any) {
-      return response
-        .status(500)
-        .json({ mensagem: 'erro interno', erro: error.message })
-    }
+    return response.status(200).json({ ...user })
   }
 }

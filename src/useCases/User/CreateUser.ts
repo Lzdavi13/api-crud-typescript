@@ -1,4 +1,5 @@
 import { User } from '../../entities/User'
+import { ApiError } from '../../helpers/apiError'
 import { IUsersRepository } from '../../repositories/IUsersRepositories'
 import { hashPassword } from '../../services/BcryptServices'
 
@@ -6,11 +7,10 @@ export class CreateUserSevice {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(user: User) {
-    // try {
     const userAlreadyExists = await this.usersRepository.exists(user)
 
     if (userAlreadyExists) {
-      throw new Error('O email ja cadastrado')
+      throw new ApiError('O email ja cadastrado', 400)
     }
 
     const encryptedPassword = await hashPassword(user.password)
@@ -20,8 +20,5 @@ export class CreateUserSevice {
     const newUser = await this.usersRepository.create(_user)
 
     return newUser
-    // } catch (error) {
-    //   return Promise.reject(error)
-    // }
   }
 }

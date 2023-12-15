@@ -1,9 +1,11 @@
 import 'dotenv/config'
 import express from 'express'
+import 'express-async-errors'
 import createUserController from './factory/createUserFactory'
 import userLoginController from './factory/userLoginFactory'
 import userUpdateController from './factory/userUpdateFactory'
 import { ensureAuthenticated } from './middlewares/EnsureAuthenticated'
+import { errorHandling } from './middlewares/ErrorHandling'
 
 const app = express()
 
@@ -22,5 +24,7 @@ app.use(ensureAuthenticated)
 app.put('/update', (request, response) => {
   return userUpdateController.handle(request, response)
 })
+
+app.use(errorHandling)
 
 app.listen(3333)
