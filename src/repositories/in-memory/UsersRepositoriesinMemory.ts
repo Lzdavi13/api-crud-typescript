@@ -10,7 +10,7 @@ export class UsersRepositoryInMemory implements IUsersRepository {
       id: 1,
       name: 'Luiz Davi',
       email: 'Luizd@gmail.com',
-      password: 'luiz123',
+      password: 'luizd1234',
     },
   ]
   async create(user: User): Promise<User> {
@@ -39,9 +39,16 @@ export class UsersRepositoryInMemory implements IUsersRepository {
   async update(user: IUserUpdate, id: number): Promise<IUserUpdate> {
     const userId: number = this.users.findIndex((_user) => _user.id === id)
 
-    this.users[userId] = {
-      id: this.users[userId].id,
-      ...user,
+    if (user.name) {
+      this.users[userId].name = user.name
+    }
+
+    if (user.email) {
+      this.users[userId].email = user.email
+    }
+
+    if (user.password) {
+      this.users[userId].password = user.password
     }
 
     return this.users[userId]

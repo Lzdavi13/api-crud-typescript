@@ -1,4 +1,4 @@
-import knex from '../database/conexao'
+import { db } from '../database'
 import { User } from '../entities/User'
 import { IUserDTO } from '../interfaces/IUserDTO'
 import { IUserUpdate } from '../interfaces/IUserUpdate'
@@ -6,40 +6,45 @@ import { IUsersRepository } from './IUsersRepositories'
 
 export class UsersRepository implements IUsersRepository {
   async create(user: User): Promise<User> {
-    const [userCreated] = await knex('users')
-      .insert({ ...user })
-      .returning('*')
+    const userCreated = await db.user.create({ data: { ...user } })
 
-    return userCreated as User
+    return userCreated
   }
 
   async exists(user: User): Promise<boolean> {
-    const UserAlreadyExists = await knex('users')
-      .where({ email: user.email })
-      .first()
+    const userAllreadyExists = await db.user.findUnique({
+      where: { email: user.email },
+    })
 
-    if (UserAlreadyExists) {
-      return true
-    }
-
-    return false
+    return !!userAllreadyExists
   }
 
   async getUser(userData: object): Promise<IUserDTO> {
-    const userFound = await knex('users')
-      .where({ ...userData })
-      .first()
+    const userFound = await db.user.findUnique({
+      where: {
+        ...(userData as User),
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        password: true,
+      },
+    })
 
-    return userFound
+    return userFound as IUserDTO
   }
 
   async update(user: IUserUpdate, id: number): Promise<IUserDTO> {
-    const [userUpdated] = await knex('users')
-      .where({ id })
-      .update({ ...user })
-      .returning('*')
+    const userUpdated = await db.user.update({
+      where: {
+        id,
+      },
+      data: {
+        ...user,
+      },
+    })
 
-    const { password, ..._user } = userUpdated
-    return _user
+    return userUpdated
   }
 }
