@@ -20,8 +20,6 @@ app.post('/login', (request, response) => {
 app.use(ensureAuthenticated)
 
 app.put('/update', (request, response) => {
-  console.log(request)
-
   return userUpdateController.handle(request, response)
 })
 

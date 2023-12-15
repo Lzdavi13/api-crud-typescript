@@ -6,20 +6,18 @@ export class UserUpdate {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(user: IUserUpdate, id: number) {
-    let encryptPassword: string = ''
     try {
       if (user.email === '' || user.name === '' || user.password === '') {
         throw new Error('Você não pode enviar campos em branco')
       }
 
       if (user.password) {
-        encryptPassword = await hashPassword(user.password)
+        const encryptPassword = await hashPassword(user.password)
+
+        user.password = encryptPassword
       }
 
-      const userUpdated = await this.usersRepository.update(
-        { ...user, password: encryptPassword },
-        id,
-      )
+      const userUpdated = await this.usersRepository.update({ ...user }, id)
       return userUpdated
     } catch (error) {
       return Promise.reject(error)

@@ -1,13 +1,23 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { UsersRepositoryInMemory } from '../../repositories/in-memory/UsersRepositoriesinMemory'
+import { verifyPassword } from './../../services/BcryptServices'
 import { UserLogin } from './UserLogin'
 
+vi.mock('./../../services/BcryptServices')
+
 describe('User sign in', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+    vi.resetAllMocks()
+  })
+
   it('must be able to log in successfully', async () => {
     const userData = {
       email: 'Luizd@gmail.com',
-      password: 'luiz123',
+      password: 'luizd1234',
     }
+
+    vi.mocked(verifyPassword).mockReturnValueOnce(Promise.resolve(true))
 
     const userLogin = new UserLogin(new UsersRepositoryInMemory())
 
@@ -21,7 +31,7 @@ describe('User sign in', () => {
 
   it('should handle user not found case', async () => {
     const userData = {
-      email: 'Luiz@gmail.com',
+      email: 'luiz@gmail.com',
       password: 'luiz123',
     }
 
@@ -32,7 +42,7 @@ describe('User sign in', () => {
     ).rejects.toThrowError('Usuario não encontrado')
   })
 
-  it('deve lidar com o caso de senha incorreta', async () => {
+  it('should handle the case of incorrect password', async () => {
     const userData = {
       email: 'Luizd@gmail.com',
       password: 'luiz12',

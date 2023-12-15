@@ -1,4 +1,5 @@
-import { IUsersRepository } from '@/repositories/IUsersRepositories'
+import { IUsersRepository } from '../../repositories/IUsersRepositories'
+import { verifyPassword } from '../../services/BcryptServices'
 import { sign } from '../../services/JwtServices'
 
 interface IUserLogin {
@@ -6,7 +7,6 @@ interface IUserLogin {
     id: number
     name: string
     email: string
-    password: string
   }
   token: string
 }
@@ -22,16 +22,18 @@ export class UserLogin {
         throw new Error('Usuario não encontrado')
       }
 
-      if (user.password !== password) {
+      const decryptedPassword = await verifyPassword(password, user.password)
+
+      if (!decryptedPassword) {
         throw new Error('Senha incorreta')
       }
 
       const jwtToken = sign(user.id)
 
-      return { user, token: jwtToken }
-    } catch (error) {
-      console.log(error)
+      const { password: _, ..._user } = user
 
+      return { user: _user, token: jwtToken }
+    } catch (error) {
       return Promise.reject(error)
     }
   }
