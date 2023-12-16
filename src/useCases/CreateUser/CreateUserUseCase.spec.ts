@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { User } from '../../entities/User'
 import { UsersRepositoryInMemory } from '../../repositories/in-memory/UsersRepositoriesinMemory'
-import { CreateUserSevice } from './CreateUser'
+import { CreateUserUseCase } from './CreateUserUseCase'
 
 describe('Create user service', () => {
   test('should be able to create a new user', async () => {
@@ -11,7 +11,7 @@ describe('Create user service', () => {
       password: 'luiz123',
     }
 
-    const createUserService = new CreateUserSevice(
+    const createUserService = new CreateUserUseCase(
       new UsersRepositoryInMemory(),
     )
 
@@ -26,7 +26,7 @@ describe('Create user service', () => {
       email: 'Luizd@gmail.com',
       password: 'luiz123',
     }
-    const createUserService = new CreateUserSevice(
+    const createUserService = new CreateUserUseCase(
       new UsersRepositoryInMemory(),
     )
 

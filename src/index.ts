@@ -1,9 +1,9 @@
 import 'dotenv/config'
 import express from 'express'
 import 'express-async-errors'
-import createUserController from './factory/createUserFactory'
-import userLoginController from './factory/userLoginFactory'
-import userUpdateController from './factory/userUpdateFactory'
+import createUserController from './factory/CreateUserFactory'
+import userUpdateController from './factory/UpdateUserFactory'
+import userLoginController from './factory/UserLoginFactory'
 import { ensureAuthenticated } from './middlewares/EnsureAuthenticated'
 import { errorHandling } from './middlewares/ErrorHandling'
 

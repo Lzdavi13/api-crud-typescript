@@ -3,7 +3,7 @@ import { IUserUpdate } from '../../interfaces/IUserUpdate'
 import { IUsersRepository } from '../../repositories/IUsersRepositories'
 import { hashPassword } from '../../services/BcryptServices'
 
-export class UserUpdate {
+export class UpdateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(user: IUserUpdate, id: number) {

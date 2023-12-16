@@ -12,7 +12,7 @@ interface IUserLogin {
   token: string
 }
 
-export class UserLogin {
+export class UserLoginUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(email: string, password: string): Promise<IUserLogin> {

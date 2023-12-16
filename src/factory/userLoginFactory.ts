@@ -1,9 +1,9 @@
-import { UserLoginController } from '@/controllers/userLoginController'
+import { UserLoginController } from '@/controllers/UserLoginController'
 import { UsersRepository } from '@/repositories/UsersRepositories'
-import { UserLogin } from '@/useCases/UserLogin/UserLogin'
+import { UserLoginUseCase } from '@/useCases/UserLogin/UserLoginUseCase'
 
 const usersRepository = new UsersRepository()
-const userLogin = new UserLogin(usersRepository)
-const userLoginController = new UserLoginController(userLogin)
+const userLoginUseCase = new UserLoginUseCase(usersRepository)
+const userLoginController = new UserLoginController(userLoginUseCase)
 
 export default userLoginController

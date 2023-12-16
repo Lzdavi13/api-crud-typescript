@@ -3,7 +3,7 @@ import { ApiError } from '../../helpers/apiError'
 import { IUsersRepository } from '../../repositories/IUsersRepositories'
 import { hashPassword } from '../../services/BcryptServices'
 
-export class CreateUserSevice {
+export class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(user: User) {

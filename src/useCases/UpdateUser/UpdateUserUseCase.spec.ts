@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { UsersRepositoryInMemory } from './../../repositories/in-memory/UsersRepositoriesinMemory'
-import { UserUpdate } from './UserUpdate'
+import { UpdateUserUseCase } from './UpdateUserUseCase'
 
 describe('User update', () => {
   it('should be able update the user', async () => {
@@ -9,7 +9,7 @@ describe('User update', () => {
       email: 'luizSan@gmail.com',
     }
 
-    const userUpdate = new UserUpdate(new UsersRepositoryInMemory())
+    const userUpdate = new UpdateUserUseCase(new UsersRepositoryInMemory())
 
     const userUpdated = await userUpdate.execute(userData, 1)
 
@@ -22,7 +22,7 @@ describe('User update', () => {
   it('should handle empty object case', async () => {
     const userData = { name: '', email: 'luiz@gmail' }
 
-    const userUpdate = new UserUpdate(new UsersRepositoryInMemory())
+    const userUpdate = new UpdateUserUseCase(new UsersRepositoryInMemory())
 
     expect(userUpdate.execute(userData, 1)).rejects.toThrowError(
       'Você não pode enviar campos em branco',

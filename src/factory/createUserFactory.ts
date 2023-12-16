@@ -1,9 +1,9 @@
-import { CreateUserController } from '@/controllers/createUserController'
+import { CreateUserController } from '@/controllers/CreateUserController'
 import { UsersRepository } from '@/repositories/UsersRepositories'
-import { CreateUserSevice } from '@/useCases/User/CreateUser'
+import { CreateUserUseCase } from '@/useCases/CreateUser/CreateUserUseCase'
 
 const usersRepository = new UsersRepository()
-const createUserService = new CreateUserSevice(usersRepository)
-const createUserController = new CreateUserController(createUserService)
+const createUserUseCase = new CreateUserUseCase(usersRepository)
+const createUserController = new CreateUserController(createUserUseCase)
 
 export default createUserController
