@@ -1,12 +1,12 @@
 import { ApiError } from '../../helpers/apiError'
-import { IUserUpdate } from '../../interfaces/IUserUpdate'
+import { IUpdateUserDTO } from '../../interfaces/IUpdateUserDTO'
 import { IUsersRepository } from '../../repositories/IUsersRepositories'
 import { hashPassword } from '../../services/BcryptServices'
 
 export class UpdateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  async execute(user: IUserUpdate, id: number) {
+  async execute(user: IUpdateUserDTO, id: number) {
     if (user.email === '' || user.name === '' || user.password === '') {
       throw new ApiError('Você não pode enviar campos em branco', 400)
     }
