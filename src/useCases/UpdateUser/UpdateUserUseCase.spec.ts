@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { UsersRepositoryInMemory } from './../../repositories/in-memory/UsersRepositoriesinMemory'
+import { UsersRepositoryInMemory } from '../../repositories/in-memory/UsersRepositoriesinMemory'
 import { UpdateUserUseCase } from './UpdateUserUseCase'
 
 describe('User update', () => {

@@ -1,11 +1,12 @@
 import { db } from '../database'
 import { User } from '../entities/User'
 import { IUserDTO } from '../interfaces/IUserDTO'
-import { IUserUpdate } from '../interfaces/IUserUpdate'
+import { ICreateUserDTO } from './../interfaces/ICreateUserDTO'
+import { IUpdateUserDTO } from './../interfaces/IUpdateUserDTO'
 import { IUsersRepository } from './IUsersRepositories'
 
 export class UsersRepository implements IUsersRepository {
-  async create(user: User): Promise<User> {
+  async create(user: User): Promise<ICreateUserDTO> {
     const userCreated = await db.user.create({
       data: { ...user },
       select: {
@@ -42,7 +43,7 @@ export class UsersRepository implements IUsersRepository {
     return userFound as IUserDTO
   }
 
-  async update(user: IUserUpdate, id: number): Promise<IUserDTO> {
+  async update(user: IUpdateUserDTO, id: number): Promise<IUserDTO> {
     const userUpdated = await db.user.update({
       where: {
         id,

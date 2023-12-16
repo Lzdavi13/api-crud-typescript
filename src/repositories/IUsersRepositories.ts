@@ -1,13 +1,14 @@
-import { IUserUpdate } from '@/interfaces/IUserUpdate'
 import { User } from '../entities/User'
 import { IUserDTO } from '../interfaces/IUserDTO'
+import { ICreateUserDTO } from './../interfaces/ICreateUserDTO'
+import { IUpdateUserDTO } from './../interfaces/IUpdateUserDTO'
 
 export interface IUsersRepository {
-  create(user: User): Promise<User>
+  create(user: User): Promise<ICreateUserDTO>
 
   exists(user: User): Promise<boolean>
 
-  getUser(userData: IUserUpdate): Promise<IUserDTO>
+  getUser(userData: IUpdateUserDTO): Promise<IUserDTO>
 
-  update(user: IUserUpdate, id: number): Promise<IUserUpdate>
+  update(user: IUpdateUserDTO, id: number): Promise<IUpdateUserDTO>
 }
