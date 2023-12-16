@@ -1,8 +1,8 @@
 import { User } from '@/entities/User'
-import { IUserUpdate } from '@/interfaces/IUserUpdate'
-import { randomUUID } from 'crypto'
+import { IUpdateUserDTO } from '@/interfaces/IUpdateUserDTO'
 import { IUserDTO } from '../../interfaces/IUserDTO'
 import { IUsersRepository } from '../IUsersRepositories'
+import { ICreateUserDTO } from './../../interfaces/ICreateUserDTO'
 
 export class UsersRepositoryInMemory implements IUsersRepository {
   private users: IUserDTO[] = [
@@ -13,12 +13,13 @@ export class UsersRepositoryInMemory implements IUsersRepository {
       password: 'luizd1234',
     },
   ]
-  async create(user: User): Promise<User> {
-    Object.assign(user, { id: randomUUID() })
+  async create(user: User): Promise<ICreateUserDTO> {
+    const newUser: IUserDTO = {
+      id: Math.floor(Math.random() * 10000) + 1,
+      ...user,
+    }
 
-    this.users.push(user)
-
-    return user
+    return newUser
   }
 
   async exists(user: User): Promise<boolean> {
@@ -34,9 +35,9 @@ export class UsersRepositoryInMemory implements IUsersRepository {
       (_user) => _user.email === userData.email || _user.id === userData.id,
     )
 
-    return userFound
+    return userFound as IUserDTO
   }
-  async update(user: IUserUpdate, id: number): Promise<IUserUpdate> {
+  async update(user: IUpdateUserDTO, id: number): Promise<IUpdateUserDTO> {
     const userId: number = this.users.findIndex((_user) => _user.id === id)
 
     if (user.name) {
