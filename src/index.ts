@@ -8,8 +8,10 @@ import { ensureAuthenticated } from './middlewares/EnsureAuthenticated'
 import { errorHandling } from './middlewares/ErrorHandling'
 import { loginValidation } from './middlewares/LoginValidation'
 import { userCreteValidation } from './middlewares/UserCreateValidation'
+import { userUpdateValidation } from './middlewares/UserUpdateValidation'
 import { createUserSchema } from './validations/CreateUserSchema'
 import { loginSchema } from './validations/UserLoginSchema'
+import { userUpdateSchema } from './validations/UserUpdateSchema'
 
 const app = express()
 
@@ -29,9 +31,13 @@ app.post('/login', loginValidation(loginSchema), (request, response) => {
 
 app.use(ensureAuthenticated)
 
-app.put('/update', (request, response) => {
-  return userUpdateController.handle(request, response)
-})
+app.put(
+  '/update',
+  userUpdateValidation(userUpdateSchema),
+  (request, response) => {
+    return userUpdateController.handle(request, response)
+  },
+)
 
 app.use(errorHandling)
 

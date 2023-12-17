@@ -53,6 +53,8 @@ export class UsersRepository implements IUsersRepository {
       },
     })
 
+    console.log(id)
+
     return userUpdated
   }
 }
