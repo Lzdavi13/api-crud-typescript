@@ -10,7 +10,7 @@ export class CreateUserUseCase {
     const userAlreadyExists = await this.usersRepository.exists(user)
 
     if (userAlreadyExists) {
-      throw new ApiError('O email ja cadastrado', 400)
+      throw new ApiError('O email ja esta cadastrado', 400)
     }
 
     const encryptedPassword = await hashPassword(user.password)

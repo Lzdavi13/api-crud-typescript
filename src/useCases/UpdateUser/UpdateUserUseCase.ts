@@ -15,7 +15,7 @@ export class UpdateUserUseCase {
     const userAlreadyExists = await this.usersRepository.exists(user as User)
 
     if (userAlreadyExists) {
-      throw new ApiError('O email ja cadastrado', 400)
+      throw new ApiError('O email já esta cadastrado', 400)
     }
 
     if (user.password) {
