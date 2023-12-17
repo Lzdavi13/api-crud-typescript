@@ -7,8 +7,6 @@ export const userUpdateValidation =
   async (request: Request, response: Response, next: NextFunction) => {
     const { success, error } = await schema.safeParseAsync(request.body)
 
-    console.log(success)
-
     if (error instanceof z.ZodError) {
       console.log(error.errors)
 
