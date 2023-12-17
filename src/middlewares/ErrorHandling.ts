@@ -9,7 +9,6 @@ export async function errorHandling(
 ) {
   const statusCode = error.statusCode ?? 500
   const message = error.statusCode ? error.message : 'Erro interno do servidor'
-  console.log(error)
 
   return response.json({ message, statusCode })
 }

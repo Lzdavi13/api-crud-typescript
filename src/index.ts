@@ -6,14 +6,20 @@ import userUpdateController from './factory/UpdateUserFactory'
 import userLoginController from './factory/UserLoginFactory'
 import { ensureAuthenticated } from './middlewares/EnsureAuthenticated'
 import { errorHandling } from './middlewares/ErrorHandling'
+import { userCreteValidation } from './middlewares/UserCreateValidation'
+import { createUserSchema } from './validations/CreateUserSchema'
 
 const app = express()
 
 app.use(express.json())
 
-app.post('/user', (request, response) => {
-  return createUserController.handle(request, response)
-})
+app.post(
+  '/user',
+  userCreteValidation(createUserSchema),
+  (request, response) => {
+    return createUserController.handle(request, response)
+  },
+)
 
 app.post('/login', (request, response) => {
   return userLoginController.handle(request, response)
