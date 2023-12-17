@@ -8,10 +8,6 @@ export class UpdateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(user: IUpdateUserDTO, id: number) {
-    if (user.email === '' || user.name === '' || user.password === '') {
-      throw new ApiError('Você não pode enviar campos em branco', 400)
-    }
-
     const userAlreadyExists = await this.usersRepository.exists(user as User)
 
     if (userAlreadyExists) {

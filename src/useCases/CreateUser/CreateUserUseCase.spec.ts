@@ -31,7 +31,7 @@ describe('Create user service', () => {
     )
 
     expect(createUserService.execute(userData)).rejects.toThrowError(
-      'O email ja cadastrado',
+      'O email já esta cadastrado',
     )
   })
 })

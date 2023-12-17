@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 import { ApiError } from './../helpers/apiError'
 
-export const userCreteValidation =
+export const userCreateValidation =
   (schema: any) =>
   async (request: Request, response: Response, next: NextFunction) => {
     const { success, error } = await schema.safeParseAsync(request.body)
