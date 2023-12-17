@@ -1,3 +1,4 @@
+import { User } from '@/entities/User'
 import { ApiError } from '../../helpers/apiError'
 import { IUpdateUserDTO } from '../../interfaces/IUpdateUserDTO'
 import { IUsersRepository } from '../../repositories/IUsersRepositories'
@@ -11,6 +12,12 @@ export class UpdateUserUseCase {
       throw new ApiError('Você não pode enviar campos em branco', 400)
     }
 
+    const userAlreadyExists = await this.usersRepository.exists(user as User)
+
+    if (userAlreadyExists) {
+      throw new ApiError('O email ja cadastrado', 400)
+    }
+
     if (user.password) {
       const encryptPassword = await hashPassword(user.password)
 
@@ -18,6 +25,7 @@ export class UpdateUserUseCase {
     }
 
     const userUpdated = await this.usersRepository.update({ ...user }, id)
+
     return userUpdated
   }
 }
