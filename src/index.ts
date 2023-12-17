@@ -7,7 +7,7 @@ import userLoginController from './factory/UserLoginFactory'
 import { ensureAuthenticated } from './middlewares/EnsureAuthenticated'
 import { errorHandling } from './middlewares/ErrorHandling'
 import { loginValidation } from './middlewares/LoginValidation'
-import { userCreteValidation } from './middlewares/UserCreateValidation'
+import { userCreateValidation } from './middlewares/UserCreateValidation'
 import { userUpdateValidation } from './middlewares/UserUpdateValidation'
 import { createUserSchema } from './validations/CreateUserSchema'
 import { loginSchema } from './validations/UserLoginSchema'
@@ -19,7 +19,7 @@ app.use(express.json())
 
 app.post(
   '/user',
-  userCreteValidation(createUserSchema),
+  userCreateValidation(createUserSchema),
   (request, response) => {
     return createUserController.handle(request, response)
   },
