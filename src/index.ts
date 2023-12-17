@@ -6,8 +6,10 @@ import userUpdateController from './factory/UpdateUserFactory'
 import userLoginController from './factory/UserLoginFactory'
 import { ensureAuthenticated } from './middlewares/EnsureAuthenticated'
 import { errorHandling } from './middlewares/ErrorHandling'
+import { loginValidation } from './middlewares/LoginValidation'
 import { userCreteValidation } from './middlewares/UserCreateValidation'
 import { createUserSchema } from './validations/CreateUserSchema'
+import { loginSchema } from './validations/UserLoginSchema'
 
 const app = express()
 
@@ -21,7 +23,7 @@ app.post(
   },
 )
 
-app.post('/login', (request, response) => {
+app.post('/login', loginValidation(loginSchema), (request, response) => {
   return userLoginController.handle(request, response)
 })
 
